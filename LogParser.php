@@ -59,7 +59,7 @@ class LogParser
 
         foreach ($lines as $line) {
             $url = preg_match(
-                '/(?<ip>[\S]+).+" (?<code>\d+) (?<lenght>\d*) (?<http>\S+) (?<additionalInfo>\S+.+)/',
+                '/(?<ip>[\S]+).+" (?<code>\d+) (?<length>\d*) (?<http>\S+) (?<additionalInfo>\S+.+)/',
                 $line,
                 $lineParts
             );
