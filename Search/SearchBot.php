@@ -12,21 +12,10 @@ class SearchBot
     public function search($list): ?string
     {
         $bot_list = [
-            'Googlebot',
-            'Baiduspider',
-            'ia_archiver',
-            'R6_FeedFetcher',
-            'NetcraftSurveyAgent',
-            'Sogou web spider',
-            'bingbot',
-            'Yahoo! Slurp',
-            'facebookexternalhit',
-            'PrintfulBot',
-            'msnbot',
-            'Twitterbot',
-            'UnwindFetchor',
-            'urlresolver',
-            'AppleWebKit',
+            'Google',
+            'Bing',
+            'Baidu',
+            'Yandex',
         ];
 
         foreach ($bot_list as $bl) {

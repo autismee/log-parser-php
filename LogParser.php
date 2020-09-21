@@ -47,12 +47,18 @@ class LogParser
             'views'       => 0,
             'urls'        => 0,
             'traffic'     => 0,
-            'crawlers'    => [],
+            'crawlers'    => [
+                'Google' => 0,
+                'Bing'   => 0,
+                'Baidu'  => 0,
+                'Yandex' => 0,
+            ],
             'statusCodes' => [],
         ];
 
-        $search    = new SearchBot();
+        $search = new SearchBot();
 
+        $urls      = [];
         $lineParts = [];
         $crawlers  = [];
         $status    = [];
@@ -69,7 +75,10 @@ class LogParser
             }
 
             if (!empty($lineParts['http'])) {
-                $result['urls']++;
+                if (!array_key_exists($lineParts['http'], $urls)) {
+                    $urls[$lineParts['http']] = true;
+                    $result['urls']++;
+                }
             }
 
             if (!empty($lineParts['code'])) {
@@ -90,7 +99,10 @@ class LogParser
 
         $result['statusCodes'] = array_count_values($status);
         $count                 = array_count_values($crawlers);
-        $result['crawlers']    = $count;
+
+        foreach ($count as $key => $value) {
+            $result['crawlers'] = $count;
+        }
 
         echo json_encode($result, JSON_THROW_ON_ERROR);
     }
