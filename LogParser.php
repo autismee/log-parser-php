@@ -16,7 +16,7 @@ class LogParser
      *
      * @throws JsonException
      */
-    public function __construct($fileContent)
+    public function __construct($fileContent)//todo filename only
     {
         $lines = $this->getLines($fileContent);
         $this->getResult($lines);
@@ -65,7 +65,7 @@ class LogParser
 
         foreach ($lines as $line) {
             $url = preg_match(
-                '/(?<ip>[\S]+).+" (?<code>\d+) (?<length>\d*) (?<http>\S+) (?<additionalInfo>\S+.+)/',
+                '/(?<ip>[\S]+).+" (?<code>\d+) (?<length>\d*) (?<http>\S+) (?<additionalInfo>\S+.+)/',//todo: constant and nginx pregmatch
                 $line,
                 $lineParts
             );
@@ -85,22 +85,22 @@ class LogParser
                 $status[] = $lineParts['code'];
             }
 
-            if (!empty($lineParts['length'])) {
+            if (!empty($lineParts['length'])) {//todo: humanized (use micro methods);
                 $result['traffic'] += $lineParts['length'];
             }
 
             if (!empty($lineParts['additionalInfo'])) {
                 $is_bot = $search->search($lineParts['additionalInfo']);
                 if (!is_null($is_bot)) {
-                    $crawlers[] = $is_bot;
+                    $crawlers[] = $is_bot;//todo: rename is_bot (it's not bool)
                 }
             }
         }
 
-        $result['statusCodes'] = array_count_values($status);
+        $result['statusCodes'] = array_count_values($status);//todo:refactor as lineParts['http']
         $count                 = array_count_values($crawlers);
 
-        foreach ($count as $key => $value) {
+        foreach ($count as $key => $value) {//todo:array_merge or array_replace_recursive
             $result['crawlers'] = $count;
         }
 
